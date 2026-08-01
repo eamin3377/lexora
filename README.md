@@ -57,6 +57,10 @@ The pedagogical runtime — lesson schema and runtime, visualization scenario sy
 
 The deep workspace spec — Monaco editor with Lex/Yacc language services, terminal + instrumented flex→bison→cc execution pipeline, live inspection panels (tokens, AST, parser, errors), and the three-tier AI copilot including the full Playground Agent — lives in [`playground/`](playground/README.md) (PG-01–PG-04).
 
+## Backend & Infrastructure
+
+The server-side blueprint — service topology, auth/RBAC and threat model, full database schema, API contracts, AI gateway, Firecracker sandbox execution, and the deployment/DR/cost plan — lives in [`backend/`](backend/README.md) (BE-01–BE-07).
+
 ## Next Step
 
 Await product owner approval of this specification, then proceed to Phase 0 of [`docs/17-implementation-plan.md`](docs/17-implementation-plan.md).
