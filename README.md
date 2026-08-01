@@ -37,6 +37,10 @@ Think of it as: *Duolingo's pedagogy × Stripe's polish × VSCode's power × Fra
 - **Everything animates with purpose.** Motion explains computation; it is pedagogy, not decoration.
 - **Handcrafted feel.** Custom illustration language, editorial typography, tactile micro-interactions.
 
+## UI/UX Design Documentation
+
+Pixel-perfect design specs for every page — brand identity, logo system, exact layouts, animation choreography, and the papercraft 3D art direction — live in [`design/`](design/README.md) (D00–D08).
+
 ## Next Step
 
 Await product owner approval of this specification, then proceed to Phase 0 of [`docs/17-implementation-plan.md`](docs/17-implementation-plan.md).
