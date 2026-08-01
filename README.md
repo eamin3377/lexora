@@ -53,6 +53,10 @@ The engineering blueprint — monorepo structure, App Router route tree, compone
 
 The pedagogical runtime — lesson schema and runtime, visualization scenario system, quiz/assessment engine with semantic grading, AI tutor pipeline, and the mastery/spaced-review model — lives in [`learning-engine/`](learning-engine/README.md) (LE-01–LE-05).
 
+## Compiler Playground
+
+The deep workspace spec — Monaco editor with Lex/Yacc language services, terminal + instrumented flex→bison→cc execution pipeline, live inspection panels (tokens, AST, parser, errors), and the three-tier AI copilot including the full Playground Agent — lives in [`playground/`](playground/README.md) (PG-01–PG-04).
+
 ## Next Step
 
 Await product owner approval of this specification, then proceed to Phase 0 of [`docs/17-implementation-plan.md`](docs/17-implementation-plan.md).
