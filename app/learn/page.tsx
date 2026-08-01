@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 
-import { LearnView } from "@/components/learn/learn-view";
+import { Dashboard } from "@/components/learn/dashboard";
 
 export const metadata: Metadata = {
-  title: "Learn",
+  title: "Dashboard",
 };
 
 export default function LearnPage() {
-  return <LearnView />;
+  return <Dashboard />;
 }
