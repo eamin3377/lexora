@@ -49,6 +49,10 @@ The complete, buildable design system — token dictionary, typography, 40+ comp
 
 The engineering blueprint — monorepo structure, App Router route tree, component hierarchy with the trace-rendering contract, state management, and the Workers/WASM integration — lives in [`architecture/`](architecture/README.md) (FA-01–FA-05).
 
+## Interactive Learning Engine
+
+The pedagogical runtime — lesson schema and runtime, visualization scenario system, quiz/assessment engine with semantic grading, AI tutor pipeline, and the mastery/spaced-review model — lives in [`learning-engine/`](learning-engine/README.md) (LE-01–LE-05).
+
 ## Next Step
 
 Await product owner approval of this specification, then proceed to Phase 0 of [`docs/17-implementation-plan.md`](docs/17-implementation-plan.md).
