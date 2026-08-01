@@ -41,6 +41,10 @@ Think of it as: *Duolingo's pedagogy × Stripe's polish × VSCode's power × Fra
 
 Pixel-perfect design specs for every page — brand identity, logo system, exact layouts, animation choreography, and the papercraft 3D art direction — live in [`design/`](design/README.md) (D00–D08).
 
+## Design System — "Paper & Ink" v1.0
+
+The complete, buildable design system — token dictionary, typography, 40+ component specs with ARIA contracts, Inkline icons, Marginalia illustration system, motion API, and governance — lives in [`design-system/`](design-system/README.md) (DS-01–DS-07).
+
 ## Next Step
 
 Await product owner approval of this specification, then proceed to Phase 0 of [`docs/17-implementation-plan.md`](docs/17-implementation-plan.md).
