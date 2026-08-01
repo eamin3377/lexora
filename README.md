@@ -45,6 +45,10 @@ Pixel-perfect design specs for every page — brand identity, logo system, exact
 
 The complete, buildable design system — token dictionary, typography, 40+ component specs with ARIA contracts, Inkline icons, Marginalia illustration system, motion API, and governance — lives in [`design-system/`](design-system/README.md) (DS-01–DS-07).
 
+## Frontend Architecture
+
+The engineering blueprint — monorepo structure, App Router route tree, component hierarchy with the trace-rendering contract, state management, and the Workers/WASM integration — lives in [`architecture/`](architecture/README.md) (FA-01–FA-05).
+
 ## Next Step
 
 Await product owner approval of this specification, then proceed to Phase 0 of [`docs/17-implementation-plan.md`](docs/17-implementation-plan.md).
