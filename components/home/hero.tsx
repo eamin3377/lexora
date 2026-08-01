@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -15,25 +15,66 @@ const PaperScene = dynamic(() => import("@/components/three/paper-scene"), {
 const HEADLINE = ["See", "the", "machine"];
 
 const FLOATERS = [
-  { char: "{", left: "6%", top: "16%", delay: "0s" },
-  { char: ";", left: "12%", top: "74%", delay: "1.2s" },
-  { char: "ε", left: "50%", top: "8%", delay: "0.6s" },
-  { char: "+", left: "88%", top: "26%", delay: "1.8s" },
-  { char: "id", left: "82%", top: "78%", delay: "0.3s" },
+  { char: "{", left: "6%", top: "16%", delay: "0s", depth: 0.04 },
+  { char: ";", left: "12%", top: "74%", delay: "1.2s", depth: 0.06 },
+  { char: "ε", left: "50%", top: "8%", delay: "0.6s", depth: 0.03 },
+  { char: "+", left: "88%", top: "26%", delay: "1.8s", depth: 0.05 },
+  { char: "id", left: "82%", top: "78%", delay: "0.3s", depth: 0.07 },
+  { char: "→", left: "24%", top: "50%", delay: "0.9s", depth: 0.05 },
+  { char: "*", left: "72%", top: "52%", delay: "1.5s", depth: 0.04 },
 ];
 
-export function Hero() {
+interface FloaterProps {
+  char: string;
+  left: string;
+  top: string;
+  delay: string;
+  depth: number;
+  sx: ReturnType<typeof useSpring>;
+  sy: ReturnType<typeof useSpring>;
+}
+
+function Floater({ char, left, top, delay, depth, sx, sy }: FloaterProps) {
+  const tx = useTransform(sx, (v) => v * depth * 100);
+  const ty = useTransform(sy, (v) => v * depth * 100);
   return (
-    <section className="bg-sunrise paper-grain relative overflow-hidden pt-16">
+    <motion.span
+      aria-hidden
+      style={{ x: tx, y: ty, left, top }}
+      className="animate-drift-slow absolute hidden rounded-lg bg-card px-3 py-1.5 font-mono text-sm text-ink-500 shadow-[4px_4px_0_#E3DDCE] ring-1 ring-line md:block"
+    >
+      <span style={{ animationDelay: delay }} className="inline-block">
+        {char}
+      </span>
+    </motion.span>
+  );
+}
+
+export function Hero() {
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const sx = useSpring(mx, { stiffness: 120, damping: 20 });
+  const sy = useSpring(my, { stiffness: 120, damping: 20 });
+
+  const onMove = React.useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mx.set((e.clientX - rect.left - rect.width / 2) / (rect.width / 2));
+    my.set((e.clientY - rect.top - rect.height / 2) / (rect.height / 2));
+  }, [mx, my]);
+
+  const onLeave = React.useCallback(() => {
+    mx.set(0);
+    my.set(0);
+  }, [mx, my]);
+
+  return (
+    <section
+      className="bg-sunrise paper-grain relative overflow-hidden pt-16"
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+    >
       {FLOATERS.map((f) => (
-        <span
-          key={f.char + f.left}
-          aria-hidden
-          className="animate-drift-slow absolute hidden rounded-lg bg-card px-3 py-1.5 font-mono text-sm text-ink-500 shadow-[4px_4px_0_#E3DDCE] ring-1 ring-line md:block"
-          style={{ left: f.left, top: f.top, animationDelay: f.delay }}
-        >
-          {f.char}
-        </span>
+        <Floater key={f.char + f.left} {...f} sx={sx} sy={sy} />
       ))}
 
       <div className="mx-auto grid min-h-[calc(100vh-4rem)] max-w-[1200px] items-center gap-12 px-4 py-16 sm:px-8 lg:grid-cols-[45fr_55fr]">
@@ -124,6 +165,25 @@ export function Hero() {
           <PaperScene className="absolute inset-0" />
         </motion.div>
       </div>
+
+      {/* scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 lg:flex"
+      >
+        <span className="text-[11px] font-semibold tracking-widest text-ink-300 uppercase">
+          scroll to compile
+        </span>
+        <motion.span
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          className="flex size-6 items-start justify-center rounded-full border border-ink-300 p-1"
+        >
+          <span className="size-1 rounded-full bg-ink-300" />
+        </motion.span>
+      </motion.div>
     </section>
   );
 }
