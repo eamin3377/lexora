@@ -85,28 +85,24 @@ export function InteractiveDemo() {
   }, []);
 
   const step = React.useCallback(() => {
-    setCursor((c) => {
-      const next = c + 1;
-      if (next >= input.length) {
-        setPlaying(false);
-        setStatus(state === ACCEPTING ? "accepted" : "rejected");
-        return c;
-      }
-      const ch = input[next] as "a" | "b";
-      setState((s) => {
-        const target = DFA[s][ch];
-        setLastEdge(`${s}-${target}-${ch}`);
-        if (next === input.length - 1) {
-          setPlaying(false);
-          setStatus(target === ACCEPTING ? "accepted" : "rejected");
-        } else {
-          setStatus("running");
-        }
-        return target;
-      });
-      return next;
-    });
-  }, [input, state]);
+    const next = cursor + 1;
+    if (next >= input.length) {
+      setPlaying(false);
+      setStatus(state === ACCEPTING ? "accepted" : "rejected");
+      return;
+    }
+    const ch = input[next] as "a" | "b";
+    const target = DFA[state][ch];
+    setLastEdge(`${state}-${target}-${ch}`);
+    setState(target);
+    setCursor(next);
+    if (next === input.length - 1) {
+      setPlaying(false);
+      setStatus(target === ACCEPTING ? "accepted" : "rejected");
+    } else {
+      setStatus("running");
+    }
+  }, [cursor, input, state]);
 
   React.useEffect(() => {
     if (!playing) return;
@@ -331,6 +327,7 @@ export function InteractiveDemo() {
           <div className="flex flex-wrap items-center gap-2 border-t border-line bg-paper-1 px-4 py-3">
             <Button
               size="sm"
+              disabled={input.length === 0}
               onClick={() => {
                 if (finished) reset();
                 setPlaying((p) => !p);
@@ -341,7 +338,7 @@ export function InteractiveDemo() {
               {playing ? <Pause className="size-4" /> : <Play className="size-4" />}
               {playing ? "Pause" : finished ? "Replay" : "Play"}
             </Button>
-            <Button size="sm" variant="secondary" onClick={step} disabled={playing || finished}>
+            <Button size="sm" variant="secondary" onClick={step} disabled={playing || finished || input.length === 0}>
               <StepForward className="size-4" />
               Step
             </Button>

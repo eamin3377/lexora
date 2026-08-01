@@ -41,9 +41,12 @@ function Floater({ char, left, top, delay, depth, sx, sy }: FloaterProps) {
     <motion.span
       aria-hidden
       style={{ x: tx, y: ty, left, top }}
-      className="animate-drift-slow absolute hidden rounded-lg bg-card px-3 py-1.5 font-mono text-sm text-ink-500 shadow-[4px_4px_0_#E3DDCE] ring-1 ring-line md:block"
+      className="absolute hidden md:block"
     >
-      <span style={{ animationDelay: delay }} className="inline-block">
+      <span
+        style={{ animationDelay: delay }}
+        className="animate-drift-slow inline-block rounded-lg bg-card px-3 py-1.5 font-mono text-sm text-ink-500 shadow-[4px_4px_0_#E3DDCE] ring-1 ring-line"
+      >
         {char}
       </span>
     </motion.span>
